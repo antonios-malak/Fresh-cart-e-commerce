@@ -30,27 +30,40 @@
       </div>
       <div class="mt-1">
         <label for="password" class="block mb-1 text-sm font-medium text-gray-600">Password:</label>
-        <div class="wrapper flex justify-between">
+        <div class="relative">
           <Field
             name="password"
-            type="password"
-            id="password"
-            class="bg-gray-50 border border-gray-300 text-gray-600 block w-full text-sm rounded-lg p-1 required focus:outline-0 focus:bg-blue-100"
+            :type="showPassword ? 'text' : 'password'"
+            class="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-1 focus:outline-0 focus:bg-blue-100 placeholder:text-gray-400"
           />
+          <button
+            type="button"
+            @click="showPassword = !showPassword"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2"
+          >
+            <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" class="text-gray-500"></i>
+          </button>
         </div>
-
         <ErrorMessage name="password" class="text-red-600" as="p" />
       </div>
       <div class="mt-1">
         <label for="rePassword" class="block mb-1 text-sm font-medium text-gray-600"
           >Repassword:</label
         >
-        <Field
-          name="rePassword"
-          type="password"
-          id="rePassword"
-          class="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-1 required focus:outline-0 focus:bg-blue-100"
-        />
+        <div class="relative">
+          <Field
+            name="rePassword"
+            :type="showPassword ? 'text' : 'password'"
+            class="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-1 focus:outline-0 focus:bg-blue-100 placeholder:text-gray-400"
+          />
+          <button
+            type="button"
+            @click="showPassword = !showPassword"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2"
+          >
+            <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" class="text-gray-500"></i>
+          </button>
+        </div>
         <ErrorMessage name="rePassword" class="text-red-600" as="p" />
       </div>
       <div class="mt-1">
@@ -83,6 +96,7 @@ import { useRouter } from 'vue-router'
 import * as Yup from 'yup'
 const apiError = ref(null)
 const isLoading = ref(false)
+const showPassword = ref(false)
 const router = useRouter()
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -95,11 +109,11 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required('Password is required')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
       'Password must be at least 8 characters long and contain at least one letter and one number',
     ),
   rePassword: Yup.string()
-    .required('RePassword is required')
+    .required('rePassword is required')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   telephone: Yup.string()
     .required('Telephone is required')
