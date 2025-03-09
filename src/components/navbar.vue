@@ -123,17 +123,18 @@
                 <i class="fa-brands fa-twitter text-sm sm:text-base"></i>
               </a>
             </li>
+            <li class="relative">
+              <router-link :to="{ name: 'cart' }" class="text-gray-600">
+                <i class="fa-solid fa-cart-shopping text-xl sm:text-2xl"></i>
+                <span
+                  class="bg-main text-white rounded w-3 h-3 sm:w-4 sm:h-4 block text-center text-xs absolute -top-1 -right-1"
+                >
+                  {{ CartStore.numOfCartItems }}
+                </span>
+              </router-link>
+            </li>
           </div>
-          <li class="relative">
-            <router-link :to="{ name: 'cart' }" class="text-gray-600">
-              <i class="fa-solid fa-cart-shopping text-xl sm:text-2xl"></i>
-              <span
-                class="bg-main text-white rounded w-3 h-3 sm:w-4 sm:h-4 block text-center text-xs absolute -top-1 -right-1"
-              >
-                {{ CartStore.numOfCartItems }}
-              </span>
-            </router-link>
-          </li>
+
           <li v-if="auth.$state.isloggedIn">
             <router-link
               @click="auth.logOut"
