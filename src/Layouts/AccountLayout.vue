@@ -83,22 +83,32 @@ import Navbar from '@/components/navbar.vue'
 
 <style scoped>
 .account-layout {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 20px;
-  padding: 20px;
+  display: block;
 }
+
+@media (min-width: 768px) {
+  .account-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
 .sidebar {
   background: #f4f4f4;
   padding: 20px;
   border-radius: 10px;
 }
+
 .content {
   background: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
+
 a.router-link-active.router-link-exact-active {
   background-color: #0a820a;
   color: white;
